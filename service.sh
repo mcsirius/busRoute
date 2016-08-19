@@ -5,6 +5,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Example: RUN="java -jar $DIR/target/magic.jar"
 
 DATA_FILE=$2
+PORT_NUM=$3
+
 RUN="java -jar $DIR/target/busRoute-0.0.1-SNAPSHOT.jar --FILE.PATH=file:"
 NAME=busRoute-service
 
@@ -16,7 +18,7 @@ start() {
     echo 'Service already running' >&2
     return 1
   fi
-  local CMD="$RUN$DATA_FILE &> \"$LOGFILE\" & echo \$!"
+  local CMD="$RUN$DATA_FILE --server.port=$PORT_NUM&> \"$LOGFILE\" & echo \$!"
   echo $CMD
   sh -c "$CMD" > "$PIDFILE"
 }
